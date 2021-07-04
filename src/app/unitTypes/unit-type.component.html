@@ -1,0 +1,73 @@
+<div class="card">
+  <div class="card-header">
+    {{fromTitle}}
+  </div>
+  <div class="card-body">
+    <form nonvalidate (ngSubmit)="save()" 
+    *ngIf="unitTypeForm" [formGroup]="unitTypeForm">
+      <div>
+        <div class="mb-4">
+          <button type="button" class="btn btn-outline-dark" (click)="addRow()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
+              <g fill="none">
+                <path d="M12 20v-8m0 0V4m0 8h8m-8 0H4" stroke="#f3d275" stroke-width="2" stroke-linecap="round" />
+              </g>
+              <rect x="0" y="0" width="24" height="24" fill="rgba(0, 0, 0, 0)" />
+            </svg>
+          </button>
+
+          <button type="button" class="btn btn-outline-dark" (click)="deleteRow()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
+              <path d="M5 21h14a2 2 0 0 0 2-2V8l-5-5H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2zM7 5h4v2h2V5h2v4H7V5zm0 8h10v6H7v-6z" fill="#01c5dc"
+              />
+              <rect x="0" y="0" width="24" height="24" fill="rgba(0, 0, 0, 0)" />
+            </svg>
+          </button>
+
+          <button type="button" class="btn btn-outline-dark" (click)="saveRecord()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 20 20">
+              <g fill="none">
+                <path d="M11.5 4a1.5 1.5 0 0 0-3 0h-1a2.5 2.5 0 0 1 5 0H17a.5.5 0 0 1 0 1h-.554L15.15 16.23A2 2 0 0 1 13.163 18H6.837a2 2 0 0 1-1.987-1.77L3.553 5H3a.5.5 0 0 1-.492-.41L2.5 4.5A.5.5 0 0 1 3 4h8.5zm3.938 1H4.561l1.282 11.115a1 1 0 0 0 .994.885h6.326a1 1 0 0 0 .993-.885L15.438 5zM8.5 7.5c.245 0 .45.155.492.359L9 7.938v6.125c0 .241-.224.437-.5.437c-.245 0-.45-.155-.492-.359L8 14.062V7.939c0-.242.224-.438.5-.438zm3 0c.245 0 .45.155.492.359l.008.079v6.125c0 .241-.224.437-.5.437c-.245 0-.45-.155-.492-.359L11 14.062V7.939c0-.242.224-.438.5-.438z"
+                  fill="#f88ea0" />
+              </g>
+              <rect x="0" y="0" width="20" height="20" fill="rgba(0, 0, 0, 0)" />
+            </svg>
+          </button>
+        </div>
+
+        <table class="table table-striped">
+          <thead class="text-nowrap">
+            <th>
+              <input class="form-check-input" id="checkAllRowsId" type="checkbox" formControlName="checkAllRows" />
+            </th>
+            <th class="d-none">Id</th>
+            <th>Looup Value</th>
+            <th>Lookup Label</th>
+            <th>Description</th>
+          </thead>
+          <tbody>
+            <ng-container formArrayName="rows">
+              <tr *ngFor="let row of rows.controls; let i=index" [formGroupName]="i">
+                <td>
+                  <input class="form-check-input shadow-none" id="{{ 'checkRowId' + i }}" type="checkbox" formControlName="checkRow" />
+                </td>
+                <td class="d-none">
+                  <input id="{{'id' + i }}" type="text" formControlName="id" />
+                </td>
+                <td>
+                  <input class="form-control shadow-none" id="{{ 'lookupValueId' + i }}" type="text" formControlName="lookupValue" />
+                </td>
+                <td>
+                  <input class="form-control shadow-none" id="{{ 'lookupLabelId' + i }}" type="text" formControlName="lookupLabel" />
+                </td>
+                <td>
+                  <input class="form-control shadow-none" id="{{ 'descriptionId' + i }}" type="text" formControlName="description">
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </form>
+  </div>
+</div>
