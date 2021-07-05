@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { UnitTypeService } from './unit-type.service';
 import { IUnitType } from '../unitTypes/unit-type';
 
@@ -8,6 +8,7 @@ import { IUnitType } from '../unitTypes/unit-type';
   templateUrl: './unit-type.component.html',
   styleUrls: ['./unit-type.component.css']
 })
+
 export class UnitTypeComponent implements OnInit {
   fromTitle: string = 'Unit Types';
   unitTypeForm: FormGroup;
