@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { UnitTypeService } from './unit-type.service';
 import { IUnitType } from '../unitTypes/unit-type';
-import { UnitTypeData } from 'src/app/unit-type-data';
 
 @Component({
   selector: 'as-unit-type',
@@ -12,17 +11,10 @@ import { UnitTypeData } from 'src/app/unit-type-data';
 export class UnitTypeComponent implements OnInit {
   fromTitle: string = 'Unit Types';
   unitTypeForm: FormGroup;
-  selectedRowValues = [];
   unitTypes: IUnitType[] = [];
-  //unitTypes: IUnitType;
 
   get rows(): FormArray {
     return <FormArray>this.unitTypeForm.get('rows');
-  }
-
-  get isChecked(): FormArray {
-    return <FormArray>this.unitTypeForm.get('isChecked');
-
   }
 
   constructor(private fb: FormBuilder, private unitTypeSvc: UnitTypeService) { }
@@ -49,7 +41,7 @@ export class UnitTypeComponent implements OnInit {
 
   createRow(row: IUnitType): FormGroup {
     return this.fb.group({
-      checkRow: false,
+      checkRow: row.checkRow,
       id: row.id,
       lookupValue: [
         row.lookupValue,
@@ -76,16 +68,12 @@ export class UnitTypeComponent implements OnInit {
   }
 
   deleteRow(): void {
-    // this.isChecked.forEach((unit: IUnitType) => {
-    //   this.rows.removeAt(this.rows(unit));
-    // });
-  }
+    var dt = this.rows.controls.filter(row => row.value.checkRow !== true);
+    this.rows.clear();
 
-
-  onCheck(index, event) {
-    if (event.target.checked) {
-      this.isChecked.push(index);
-    }
+    dt.forEach(row => {
+      this.rows.push(row);
+    });
   }
 
   saveRecord(): void {
@@ -93,9 +81,6 @@ export class UnitTypeComponent implements OnInit {
   }
 
   save() {
-    // this.rows.valueChanges.subscribe(
-    //   value => 
-    // )
     //console.log(this.unitTypeForm);
     //console.log('Saved: ' + JSON.stringify(this.unitTypeForm.value));
   }
@@ -104,6 +89,7 @@ export class UnitTypeComponent implements OnInit {
 
   private initializeUnitType(): IUnitType {
     return {
+      checkRow: false,
       id: 0,
       lookupValue: null,
       lookupLabel: null,

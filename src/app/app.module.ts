@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { UnitTypeData } from './unit-type-data';
 
 import { AppComponent } from './app.component';
 import { UnitTypeComponent } from './unitTypes/unit-type.component';
@@ -16,7 +15,6 @@ import { UnitTypeComponent } from './unitTypes/unit-type.component';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    InMemoryWebApiModule.forRoot(UnitTypeData),
     HttpClientModule,
   ],
   providers: [],
