@@ -48,7 +48,7 @@
             <ng-container formArrayName="rows">
               <tr *ngFor="let row of rows.controls; let i=index" [formGroupName]="i">
                 <td>
-                  <input class="form-check-input shadow-none" id="{{ 'checkRowId' + i }}" type="checkbox" formControlName="checkRow" />
+                  <input class="form-check-input shadow-none" id="{{ 'checkRowId' + i }}" type="checkbox" formControlName="checkRow" (change)="onCheck(i, $event)"/>
                 </td>
                 <td class="d-none">
                   <input id="{{'id' + i }}" type="text" formControlName="id" />

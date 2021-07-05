@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { UnitTypeService } from './unit-type.service';
 import { IUnitType } from '../unitTypes/unit-type';
+import { UnitTypeData } from 'src/app/unit-type-data';
 
 @Component({
   selector: 'as-unit-type',
@@ -19,12 +20,18 @@ export class UnitTypeComponent implements OnInit {
     return <FormArray>this.unitTypeForm.get('rows');
   }
 
-  constructor(private fb: FormBuilder, private unitTypeSvc: UnitTypeService) {}
+  get isChecked(): FormArray {
+    return <FormArray>this.unitTypeForm.get('isChecked');
+
+  }
+
+  constructor(private fb: FormBuilder, private unitTypeSvc: UnitTypeService) { }
 
   ngOnInit(): void {
     this.unitTypeForm = this.fb.group({
       checkAllRows: false,
-      rows: this.fb.array([])
+      rows: this.fb.array([]),
+      isChecked: this.fb.array([])
     });
 
     this.getUnitTypes();
@@ -69,20 +76,31 @@ export class UnitTypeComponent implements OnInit {
   }
 
   deleteRow(): void {
-    //this.rows.removeAt(index);
+    // this.isChecked.forEach((unit: IUnitType) => {
+    //   this.rows.removeAt(this.rows(unit));
+    // });
   }
-  isChecked(index: Event): void {}
+
+
+  onCheck(index, event) {
+    if (event.target.checked) {
+      this.isChecked.push(index);
+    }
+  }
 
   saveRecord(): void {
     console.log(this.unitTypeForm.getRawValue());
   }
 
   save() {
+    // this.rows.valueChanges.subscribe(
+    //   value => 
+    // )
     //console.log(this.unitTypeForm);
     //console.log('Saved: ' + JSON.stringify(this.unitTypeForm.value));
   }
 
-  getSelectedRowValues() {}
+  getSelectedRowValues() { }
 
   private initializeUnitType(): IUnitType {
     return {
